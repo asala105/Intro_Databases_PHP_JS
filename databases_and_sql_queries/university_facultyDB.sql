@@ -5,6 +5,3 @@ DELETE FROM `degrees`;
 DELETE FROM `faculty_members`;
 
 INSERT INTO `faculty_members`(`faculty_member_first_name`,`faculty_member_last_name`) VALUES ('Brenna','East');
-
-INSERT INTO `degrees` (`degree_name`,`year_earned`,`university`) VALUES ('BS in Computer Science',2016,'MIT');
-INSERT INTO `degrees` (`degree_name`,`year_earned`,`university`) VALUES ('MS in Computer Science',2020,'CLU');
