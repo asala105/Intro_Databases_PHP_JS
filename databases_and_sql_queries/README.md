@@ -44,4 +44,4 @@ As for the attributes of these tables, I kept the attributes "first name" and "l
 
 ## Final Touches:
 
-As a final touch, I added some attributes to the faculty members, and this required the addition of some extra tables to handle this information. Some of the information I added included the department that the faculty members belong to, the courses they teach and of the faculty that the department belongs to.
+As a final touch, I added some attributes to the faculty members, and this required the addition of some extra tables to handle this information. Some of the information I added included the department that the faculty members belong to, the courses they teach and the faculty that the department belongs to.
