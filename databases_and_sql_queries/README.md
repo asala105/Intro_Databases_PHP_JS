@@ -41,7 +41,3 @@ For the primary key, I will assign for every table a primary key of type int tha
 Now to solve the last two problems, I divided the columns in the table into two separate tables: One for faculty members(faculty_members) and one for the degrees(degrees), knowing that the relationship between the tables is such that "Every faculty member could have earned one or more degrees".(one to many relationship)
 
 As for the attributes of these tables, I kept the attributes "first name" and "last name" as they are in the "faculty_members" table but changed how they are named: "faculty_member_first_name" and "faculty_member_last_name". For the "degrees table", I separated the comma separated data into three main columns "degree_name","year_earned", "university".
-
-## Final Touches:
-
-As a final touch, I added some attributes to the faculty members, and this required the addition of some extra tables to handle this information. Some of the information I added included the department that the faculty members belong to, the courses they teach and the faculty that the department belongs to.
