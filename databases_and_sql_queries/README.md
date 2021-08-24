@@ -10,7 +10,7 @@ In this assignment I was given a table that represents the faculty database in a
 |degree2|
 |degree3|
 
-## Step 1:
+## Step 1: Identifying The Problems/Errors In The Table
 
 As a first step I started by checking the errors and mistakes in this table.
 
@@ -30,7 +30,7 @@ In the given of this assignment they told us that "The data in each degree field
 
 In the given they also tell us that every faculy member can have up to 3 degrees. So some faculty members could have 1 degree while some others could have 2 or 3 degrees. This means that for some members the columns for degree2 and degree3 might be null. With a large number of members this means that I might have a large number of nullables.
 
-## Step 2:
+## Step 2: Solving/Fixing These Problems
 
 The second step was to start by solving the above problems one by one.
 
