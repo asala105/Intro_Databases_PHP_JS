@@ -15,8 +15,34 @@ SELECT address, address2 FROM `address`WHERE address2 IS NOT NULL AND address2 N
 the release year of the movie, sorted by the actors’ last names.*/
 SELECT a.first_name, a.last_name FROM `actor` a,`film_actor` fa, `film` f WHERE (f.description LIKE '%crocodile%' or f.description LIKE '%shark%') AND fa.film_id = f.film_id AND a.actor_id = fa.actor_id ORDER BY a.first_name, a.last_name;
 
-/* SBQ 6:*/
-
+/* SBQ 6: Find all the film categories in which there are between 55 and 65 films. Return the names of these categories
+and the number of films per category, sorted by the number of films. If there are no categories between 55 and
+65, return the highest available counts*/
+SELECT DISTINCT
+CASE 
+	WHEN t1.TotalCount IS NOT NULL THEN t1.name 
+    ELSE t2.name
+END AS Category,    
+CASE
+    WHEN t1.TotalCount IS NOT NULL THEN t1.TotalCount
+    ELSE t2.TotalCount
+END AS film_count
+FROM
+(
+    SELECT c.name, COUNT(fc.film_id) TotalCount
+    FROM `category` c, `film_category` fc
+    WHERE c.category_id = fc.category_id
+    GROUP BY c.category_id
+    HAVING COUNT(fc.film_id) BETWEEN 55 AND 65
+    ORDER BY TotalCount
+) t1,
+(
+    SELECT c.name, COUNT(fc.film_id) TotalCount
+    FROM `category` c, `film_category` fc
+    WHERE c.category_id = fc.category_id
+    GROUP BY c.category_id ORDER BY TotalCount DESC LIMIT 1
+) t2
+ORDER BY film_count DESC;
 
 /* SBQ 7: Find the names (first and last) of all the actors and costumers whose first name is the same as the first name of
 the actor with ID 8. Do not return the actor with ID 8 himself. Note that you cannot use the name of the actor
