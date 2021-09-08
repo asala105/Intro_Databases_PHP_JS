@@ -19,7 +19,7 @@ if(isset($_POST["price_per_unit"]) && $_POST["price_per_unit"] != "") {
 if(isset($_POST["weight_in_Kg"])) {
     $weight_in_Kg = $_POST["weight_in_Kg"];
 }else{
-    $weight_in_Kg = NULL;
+    die ("type, Enter a valid input");
 }
 
 if(isset($_POST["quantity_in_stock"]) && $_POST["quantity_in_stock"] != "" ) {
@@ -39,7 +39,7 @@ if(isset($_POST["prod_date"])) {
     $time = strtotime($prod_date);
     $prod_date = date('Y-m-d',$time);
 }else{
-    $prod_date = NULL;
+    die ("type, Enter a valid input");
 }
 
 if(isset($_POST["exp_date"])) {
@@ -47,7 +47,7 @@ if(isset($_POST["exp_date"])) {
     $time = strtotime($exp_date);
     $exp_date = date('Y-m-d',$time);
 }else{
-    $exp_date = NULL;
+    die ("type, Enter a valid input");
 }
 
 if(isset($_POST["type"]) && $_POST["type"] != "" ) {
@@ -80,5 +80,5 @@ $sql2 = "INSERT INTO products (store_id, name, type_id, image, weight_kg, descri
 $stmt2 = $connection->prepare($sql2);
 $stmt2->bind_param("sssssssss",$name,$type_id,$path,$weight_in_Kg,$description,$quantity_in_stock,$price_per_unit,$prod_date,$exp_date);
 $stmt2->execute();
-header("location:products_instore.php");
+header("location:../products_instore.php");
 ?>

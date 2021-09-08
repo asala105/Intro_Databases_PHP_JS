@@ -10,15 +10,12 @@ $(document).ready(function () {
         })
     });
 
-    $("#add_product").on("click", function(){
+    $("#add_product").click(function(){
         var image = $('#image').val();
         var name = $('#name').val();
         var description = $('#description').val();
         var price = $('#price').val();
         var quantity = $('#quantity').val();
-        var weight = $('#weight').val();
-        var production = $('#production').val();
-        var expiry = $('#expiry').val();
         var type = $('#type').val();
         var error = false;
         if (name == ""){
@@ -35,12 +32,6 @@ $(document).ready(function () {
         if (description == ""){
             $("#desc_error #derror").text("Please enter the description of the product!")
             $("#desc_error").show();
-            error = true;
-        }
-
-        if (weight == ""){
-            $("#weight_error #werror").text("Please enter the weight of the product! If weight is not specified enter 0")
-            $("#weight_error").show();
             error = true;
         }
 
@@ -64,7 +55,7 @@ $(document).ready(function () {
             }
         } */
 
-        if(!error){
+        if(error==false){
             $("#add_productF").submit();
         }
     });
