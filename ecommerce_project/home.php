@@ -82,6 +82,7 @@ session_start();
 						<a id="viewCart" href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
+							
 						</div>
 
 					</li><!-- / Cart -->
@@ -340,8 +341,8 @@ session_start();
 					<li>
 						<a href="contact.html">CONTACT</a>
 					</li>
-					<li>
-						<a href="shop.php">SHOP</a>
+          <li>
+						<a href="home.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

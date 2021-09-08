@@ -27,8 +27,12 @@ $stmt = $connection->prepare($query);
 $stmt-> bind_param('si',$row2['id'],$row['id']);
 $stmt->execute();
 $result = $stmt->get_result();
+$_SESSION['p_error'] = false;
+$_SESSION['p_flash'] = '';
 header('location: ../confirmation.html');
 }else{
-    die("please enter the address");
+    $_SESSION['p_error'] = true;
+    $_SESSION['p_flash'] = 'please enter the address details';
+    header('location: ../checkout.php');
 }
 ?>

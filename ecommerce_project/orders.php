@@ -209,10 +209,11 @@ $result = $stmt->get_result();
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<ul class="list-inline dashboard-menu text-center">
-					<li><a href="profile-details.php">Profile Details</a></li>
-					<li><a class="active" href="orders.php">Orders</a></li>
-				</ul>
+			<ul class="list-inline dashboard-menu text-center">
+			<li><a  href="profile-details.php">Profile Details</a></li>
+          <li><a class="active"  href="orders.php">Orders</a></li>
+
+        </ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="table-responsive">
 						<table class="table">
@@ -247,22 +248,22 @@ $result = $stmt->get_result();
 			<div class="col-md-12">
 				<ul class="social-media">
 					<li>
-						<a href="https://www.facebook.com/themefisher">
+						<a href="https://www.facebook.com">
 							<i class="tf-ion-social-facebook"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.instagram.com/themefisher">
+						<a href="https://www.instagram.com">
 							<i class="tf-ion-social-instagram"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.twitter.com/themefisher">
+						<a href="https://www.twitter.com">
 							<i class="tf-ion-social-twitter"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.pinterest.com/themefisher/">
+						<a href="https://www.pinterest.com">
 							<i class="tf-ion-social-pinterest"></i>
 						</a>
 					</li>
@@ -271,14 +272,8 @@ $result = $stmt->get_result();
 					<li>
 						<a href="contact.html">CONTACT</a>
 					</li>
-					<li>
-						<a href="shop.html">SHOP</a>
-					</li>
-					<li>
-						<a href="pricing.html">Pricing</a>
-					</li>
-					<li>
-						<a href="contact.html">PRIVACY POLICY</a>
+          <li>
+						<a href="home.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
@@ -306,10 +301,6 @@ $result = $stmt->get_result();
     <!-- slick Carousel -->
     <script src="plugins/slick/slick.min.js"></script>
     <script src="plugins/slick/slick-animation.min.js"></script>
-
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

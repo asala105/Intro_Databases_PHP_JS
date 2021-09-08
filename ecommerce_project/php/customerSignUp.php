@@ -138,7 +138,9 @@ if($store_create && $user_create && $address_create){
     header("Location: ../index.html");
 }
 else{
-    header("Location: ../signup.html");
+    $_SESSION['s_error'] = true;
+    $_SESSION['s_flash'] = 'please make sure you entered valid inputs';
+    header("Location: ../signup.php");
 }
 
 

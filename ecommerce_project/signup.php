@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!-- 
 THEME: Aviato | E-commerce template
 VERSION: 1.0.0
@@ -43,7 +46,7 @@ AUTHOR: Themefisher
 <body id="body">
   <div class="container" style="margin-top: 2rem; padding-top: 2rem">
   <div class="block text-center">
-  <a class="logo" href="index.html">
+  <a class="logo" href="index.php">
     <img style="height:8rem;width:15rem"src="images/logo.png" alt="">
   </a>
   </div>
@@ -118,6 +121,15 @@ AUTHOR: Themefisher
             </div>
             <div class="form-group">
               <input type="text" class="form-control"  placeholder="Street" name="street">
+            </div>
+            <div>
+              <?php 
+              if (isset($_SESSION['s_error']) && $_SESSION['s_error']==true){
+              echo '<p style="color: red">'. $_SESSION['s_flash'].'</p>';
+              $_SESSION['s_error'] = false;
+              $_SESSION['s_flash'] = '';
+              }
+              ?>
             </div>
             <div class="text-center">
               <button type="button" class="btn btn-main text-center" id="storeSignUp">Create Account</button>
@@ -196,7 +208,15 @@ AUTHOR: Themefisher
             <div class="form-group">
               <input type="text" class="form-control"  placeholder="Street" name="c_street">
             </div>
-
+            <div>
+              <?php 
+              if (isset($_SESSION['c_error']) && $_SESSION['c_error']==true){
+              echo '<p style="color: red">'. $_SESSION['c_flash'].'</p>';
+              $_SESSION['c_error'] = false;
+              $_SESSION['c_flash'] = '';
+              }
+              ?>
+            </div>
             <div class="text-center">
               <button type="button" class="btn btn-main text-center" id="customerSignUp">Create Account</button>
             </div>
@@ -245,7 +265,7 @@ AUTHOR: Themefisher
 						<a href="contact.html">CONTACT</a>
 					</li>
           <li>
-						<a href="index.html">SHOP</a>
+						<a href="index.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

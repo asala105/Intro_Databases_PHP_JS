@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2021 at 06:40 PM
+-- Generation Time: Sep 08, 2021 at 04:11 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -103,19 +103,9 @@ CREATE TABLE `purchase_product` (
   `quantity` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ratings`
---
-
-DROP TABLE IF EXISTS `ratings`;
-CREATE TABLE `ratings` (
-  `id` int(11) NOT NULL,
-  `rating` int(11) NOT NULL
+  `price` float NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -130,6 +120,16 @@ CREATE TABLE `statuses` (
   `status` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `statuses`
+--
+
+INSERT INTO `statuses` (`id`, `status`) VALUES
+(1, 'Delivered'),
+(2, 'On it\'s way to the customer'),
+(3, 'Confirmed but not delivered yet'),
+(4, 'In progress');
+
 -- --------------------------------------------------------
 
 --
@@ -142,7 +142,6 @@ CREATE TABLE `stores` (
   `name` varchar(250) NOT NULL,
   `user_id` int(11) NOT NULL,
   `phone_nb` varchar(100) NOT NULL,
-  `rating` float NOT NULL,
   `image_logo` varchar(250) NOT NULL,
   `store_owner` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -159,6 +158,16 @@ CREATE TABLE `types` (
   `type` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `types`
+--
+
+INSERT INTO `types` (`id`, `type`, `image`) VALUES
+(5, 'Food', 'images/types/food.jpg'),
+(6, 'Stationary', 'images/types/stationary.jpg'),
+(7, 'Electronics', 'images/types/electronics.jpg'),
+(8, 'Clothes', 'images/types/clothes.jpg');
 
 -- --------------------------------------------------------
 
@@ -206,12 +215,6 @@ ALTER TABLE `products`
 -- Indexes for table `purchase_product`
 --
 ALTER TABLE `purchase_product`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ratings`
---
-ALTER TABLE `ratings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -273,16 +276,10 @@ ALTER TABLE `purchase_product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ratings`
---
-ALTER TABLE `ratings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `statuses`
 --
 ALTER TABLE `statuses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `stores`
@@ -294,7 +291,7 @@ ALTER TABLE `stores`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -98,7 +98,9 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
+				<?php if($user_type == 1){
+					
+					echo '<li class="dropdown cart-nav dropdown-slide" id="viewCart">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
@@ -106,8 +108,8 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 
 						</div>
 
-					</li><!-- / Cart -->
-
+					</li><!-- / Cart -->';
+				 } ?>
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
@@ -167,9 +169,17 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 									<ul>
 										<li class="dropdown-header">Pages</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
+
+										<?php if($user_type == 1){
+										echo '<li><a href="shop.html">Shop</a></li>
 										<li><a href="checkout.php">Checkout</a></li>
-										<li><a href="cart.php">Cart</a></li>
+										<li><a href="cart.php">Cart</a></li>';
+										}
+										else{
+											echo '<li><a href="dashboard.php">Dashboard</a></li>
+											<li><a href="add-product.php">Add Product</a></li>
+											<li><a href="products_instore.php">Show All Products</a></li>';
+										}?>
 									</ul>
 								</div>
 
@@ -201,8 +211,13 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
-										<li><a href="profile-details.php">Profile Details</a></li>
+										<?php if($user_type == 1){
+										echo '<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>';
+										}else{
+										echo '<li><a href="dashboard.php">Dashboard</a></li>
+										<li><a href="profile-details.php">Profile Details</a></li>';
+										}?>
 									</ul>
 								</div>
 							</div><!-- / .row -->
@@ -236,11 +251,20 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <ul class="list-inline dashboard-menu text-center">
-          <li><a href="dashboard.php">Dashboard</a></li>
-          <li><a href="order.html">Orders</a></li>
-          <li><a class="active"  href="profile-details.html">Profile Details</a></li>
-        </ul>
+		  <?php if($user_type == 1){
+        echo '<ul class="list-inline dashboard-menu text-center">
+		<li><a class="active"  href="profile-details.html">Profile Details</a></li>
+          <li><a href="orders.php">Orders</a></li>
+        </ul>';
+		  }
+else{
+	echo '<ul class="list-inline dashboard-menu text-center">
+	<li><a href="dashboard.php">Dashboard</a></li>
+	<li><a class="active" href="profile-details.php">Profile Details</a></li>
+	<li><a href="products_instore.php">Show All Products</a></li>
+</ul>';
+}
+		  ?>
         <div class="dashboard-wrapper dashboard-user-profile">
           <div class="media">
             <div class="pull-left text-center" href="#!">
@@ -290,9 +314,7 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 					<li>
 						<a href="contact.html">CONTACT</a>
 					</li>
-					<li>
-						<a href="shop.html">SHOP</a>
-					</li>
+					
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
 			</div>

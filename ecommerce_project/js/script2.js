@@ -1,4 +1,15 @@
 $(document).ready(function () { 
+    $("#viewCart").mouseover(function(event){
+        $.ajax({
+            url: "header1.php",
+            method: "GET",
+            success: function (data) {
+                $("#cartitem").html(data);
+                $console.log(data);
+            }
+        })
+    });
+
     $("#add_product").on("click", function(){
         var image = $('#image').val();
         var name = $('#name').val();
@@ -250,15 +261,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#viewCart").mouseover(function(event){
-        $.ajax({
-            url: "header1.php",
-            method: "GET",
-            success: function (data) {
-                $("#cartitem").html(data);
-            }
-        })
-    });
+
 
 
 

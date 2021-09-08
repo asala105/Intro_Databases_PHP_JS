@@ -310,8 +310,8 @@ $result2 = $stmt2->get_result();
 					<li>
 						<a href="contact.html">CONTACT</a>
 					</li>
-					<li>
-						<a href="shop.html">SHOP</a>
+          <li>
+						<a href="home.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

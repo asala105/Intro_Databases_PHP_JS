@@ -212,6 +212,15 @@ include "php/get_cart_items.php"
                         <label for="user_country">Country</label>
                         <input type="text" class="form-control" id="user_country" name="country" value="">
                     </div>
+					<div>
+              <?php 
+              if (isset($_SESSION['p_error']) && $_SESSION['p_error']==true){
+              echo '<p style="color: red">'. $_SESSION['p_flash'].'</p>';
+			  $_SESSION['p_error'] = false;
+				$_SESSION['p_flash'] = '';
+              }
+              ?>
+            </div>
             </div>
             <div class="block">
                 <h4 class="widget-title">Cash on delivery</h4>
@@ -291,7 +300,7 @@ foreach ($items as $item){ ?>
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="shop.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

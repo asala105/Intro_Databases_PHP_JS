@@ -28,7 +28,7 @@ if(empty($row)){
 	session_start();
     $_SESSION["error"] = true;
 	$_SESSION["flash"] = "Please check your email and password";
-	header('location: ../index.html');
+	header('location: ../index.php');
 }
 else{
 	session_start();

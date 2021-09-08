@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +44,7 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="block text-center">
-          <a class="logo" href="index.html">
+          <a class="logo" href="index.php">
             <img src="images/logo.png" style="height: 8rem" alt="">
           </a>
           <h2 class="text-center">Welcome Back</h2>
@@ -63,14 +66,21 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <i class="tf-ion-close-circled"></i><span id="perror"></span>
               </div>
-
             </div>
-
+            <div>
+              <?php 
+              if (isset($_SESSION['error']) && $_SESSION['error']==true){
+              echo '<p style="color: red">'. $_SESSION['flash'].'</p>';
+              $_SESSION['error'] = false;
+              $_SESSION['flash'] = '';
+              }
+              ?>
+            </div>
             <div class="text-center">
               <button type="button" class="btn btn-main text-center" id="loginB">Login</button>
             </div>
           </form>
-          <p class="mt-20">New in this site ?<a href="signup.html"> Create New Account</a></p>
+          <p class="mt-20">New in this site ?<a href="signup.php"> Create New Account</a></p>
         </div>
       </div>
     </div>
@@ -108,7 +118,7 @@
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="index.html">SHOP</a>
+						<a href="index.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

@@ -54,7 +54,7 @@ $result = $stmt->get_result();
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
 				<div class="logo text-center">
-					<a href="home.php">
+					<a href="dashboard.php">
 						<!-- replace logo here -->
 						<svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -73,16 +73,6 @@ $result = $stmt->get_result();
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-								class="tf-ion-android-cart"></i>Cart</a>
-						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
-						</div>
-
-					</li><!-- / Cart -->
-
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
@@ -198,7 +188,7 @@ $result = $stmt->get_result();
 				<div class="content">
 					<h1 class="page-name">Dashboard</h1>
 					<ol class="breadcrumb">
-						<li><a href="home.php">Home</a></li>
+						<li><a href="dashboard.php">Home</a></li>
 						<li class="active">my account</li>
 					</ol>
 				</div>
@@ -211,10 +201,9 @@ $result = $stmt->get_result();
 		<div class="row">
 			<div class="col-md-12">
 			<ul class="list-inline dashboard-menu text-center">
-					<li><a class="active" href="dashboard.php">Dashboard</a></li>
+					<li><a href="dashboard.php">Dashboard</a></li>
 					<li><a href="profile-details.php">Profile Details</a></li>
-					<li><a href="products_instore.php">Show All Products</a></li>
-					<li><a href="">Revenues</a></li>
+					<li><a class="active"  href="products_instore.php">Show All Products</a></li>
 				</ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="table-responsive">
@@ -224,6 +213,7 @@ $result = $stmt->get_result();
                                     <th>Product Image</th>
 									<th>Product ID</th>
 									<th>Product Name</th>
+									<th>Product Description</th>
 									<th>Price per unit</th>
 									<th>Quantity in stock</th>
                                     <th></th>
@@ -235,6 +225,7 @@ $result = $stmt->get_result();
                                     <td><img style="height:8rem;width:8rem;" src=<?php echo $row['image']?> alt=""></td>
 									<td># <?php echo $row['id']?></td>
 									<td><?php echo $row['name']?></td>
+									<td><?php echo $row['description']?></td>
 									<td><?php echo $row['price_per_unit']?></td>
 									<td><span><?php echo $row['quantity_in_stock']?></span></td>
                                     <td><?php echo '<a style="color:red" href="php/remove_product.php?q='.$row['id'].'">Remove Product</a>';?></td>
@@ -254,22 +245,22 @@ $result = $stmt->get_result();
 			<div class="col-md-12">
 				<ul class="social-media">
 					<li>
-						<a href="https://www.facebook.com/themefisher">
+						<a href="https://www.facebook.com">
 							<i class="tf-ion-social-facebook"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.instagram.com/themefisher">
+						<a href="https://www.instagram.com">
 							<i class="tf-ion-social-instagram"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.twitter.com/themefisher">
+						<a href="https://www.twitter.com">
 							<i class="tf-ion-social-twitter"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.pinterest.com/themefisher/">
+						<a href="https://www.pinterest.com">
 							<i class="tf-ion-social-pinterest"></i>
 						</a>
 					</li>
@@ -278,14 +269,8 @@ $result = $stmt->get_result();
 					<li>
 						<a href="contact.html">CONTACT</a>
 					</li>
-					<li>
-						<a href="shop.html">SHOP</a>
-					</li>
-					<li>
-						<a href="pricing.html">Pricing</a>
-					</li>
-					<li>
-						<a href="contact.html">PRIVACY POLICY</a>
+          <li>
+						<a href="dashboard.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
@@ -313,10 +298,6 @@ $result = $stmt->get_result();
     <!-- slick Carousel -->
     <script src="plugins/slick/slick.min.js"></script>
     <script src="plugins/slick/slick-animation.min.js"></script>
-
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

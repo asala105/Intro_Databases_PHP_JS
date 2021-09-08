@@ -13,7 +13,15 @@ $phone_nb = $_SESSION['phone_nb'];
 $image = $_SESSION['image_logo'];
 
 
-$query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$store_id."Group by product_id";
+$current_year = date('Y');
+$query = "SELECT MONTH(pp.date), p.id,p.name,SUM(pp.price) from purchase_product pp, products p where p.id=pp.product_id and p.store_id=".$store_id." and YEAR(pp.date)=".$current_year." Group by p.id, YEAR(pp.date),MONTH(pp.date) order by MONTH(pp.date),SUM(pp.price) DESC;";
+$stmt = $connection->prepare($query);
+$stmt -> execute();
+$result = $stmt -> get_result();
+$rows = array();
+while($row = $result->fetch_assoc()){
+	array_push($rows, $row);
+}
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +71,7 @@ $query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
 				<div class="logo text-center">
-					<a href="home.php">
+					<a href="dashboard.php">
 						<!-- replace logo here -->
 						<svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -82,16 +90,6 @@ $query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-								class="tf-ion-android-cart"></i>Cart</a>
-						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
-						</div>
-
-					</li><!-- / Cart -->
-
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
@@ -208,7 +206,7 @@ $query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$
 				<div class="content">
 					<h1 class="page-name">Dashboard</h1>
 					<ol class="breadcrumb">
-						<li><a href="home.php">Home</a></li>
+						<li><a href="dashboard.php">Home</a></li>
 						<li class="active">my account</li>
 					</ol>
 				</div>
@@ -226,7 +224,6 @@ $query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$
 					<li><a class="active" href="dashboard.php">Dashboard</a></li>
 					<li><a href="profile-details.php">Profile Details</a></li>
 					<li><a href="products_instore.php">Show All Products</a></li>
-					<li><a href="">Revenues</a></li>
 				</ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="media">
@@ -245,18 +242,22 @@ $query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$
 							<table class="table">
 								<thead>
 									<tr>
+										<th>Month</th>
 										<th>Product ID</th>
-										<th>Revenues</th>
-										<th>Status</th>
+										<th>Product Name</th>
+										<th>Revenues in $</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
+									<?php foreach($rows as $row){ ?>
 									<tr>
-										<td><a href="#!"></a></td>
-										<td></td>
-										<td></td>
+										<td><?php echo $row['MONTH(pp.date)'];?></td>
+										<td><?php echo $row['id'];?></td>
+										<td><?php echo $row['name'];?></td>
+										<td>$ <?php echo $row['SUM(pp.price)'];?></td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
@@ -299,8 +300,8 @@ $query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$
 					<li>
 						<a href="contact.html">CONTACT</a>
 					</li>
-					<li>
-						<a href="shop.html">SHOP</a>
+          <li>
+						<a href="dashboard.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

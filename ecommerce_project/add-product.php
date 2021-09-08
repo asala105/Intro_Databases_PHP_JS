@@ -52,7 +52,7 @@ session_start();
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
 				<div class="logo text-center">
-					<a href="home.php">
+					<a href="dashboard.php">
 						<!-- replace logo here -->
 						<svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -71,16 +71,6 @@ session_start();
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-								class="tf-ion-android-cart"></i>Cart</a>
-						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
-						</div>
-
-					</li><!-- / Cart -->
-
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
@@ -253,7 +243,7 @@ session_start();
               <button type="button" class="btn btn-main text-center" id="add_product">Add Product</button>
             </div>
           </form>
-          <p class="mt-20"><a href="home.php">Return to Home Page</a></p>
+          <p class="mt-20"><a href="dashboard.php">Return to Home Page</a></p>
         </div>
       </div>
     </div>
@@ -291,7 +281,7 @@ session_start();
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="dashboard.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
