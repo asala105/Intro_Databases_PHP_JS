@@ -1,24 +1,14 @@
 <?php 
 include "php/connection.php";
+include "php/get_all_products.php";
+
 $query = "Select type, image from types limit 4";
 $stmt = $connection->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
 session_start();
-if($_SESSION['is_customer']==0){
-$query = "Select id from stores where user_id=".$_SESSION["user_id"];
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$id = $result->fetch_assoc();
-$_SESSION['store_id'] = $id['id'];
-}
 ?>
-<!-- 
-THEME: Aviato | E-commerce template
-VERSION: 1.0.0
-AUTHOR: Themefisher
--->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +16,7 @@ AUTHOR: Themefisher
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
+  <title>AShop | E-commerce Website</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -61,6 +51,10 @@ AUTHOR: Themefisher
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>0129- 12323-123123</span>
+				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
@@ -73,7 +67,7 @@ AUTHOR: Themefisher
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">ASHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -84,12 +78,10 @@ AUTHOR: Themefisher
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+					<li class="dropdown cart-nav dropdown-slide">
+						<a id="viewCart" href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
 						</div>
 
 					</li><!-- / Cart -->
@@ -104,12 +96,10 @@ AUTHOR: Themefisher
 							</li>
 						</ul>
 					</li><!-- / Search -->
-					<?php if($_SESSION['is_customer']==0){ 
-						echo '<li class="dropdown search dropdown-slide"><a href="add-product.php class=">Add Product</a></li>';
-					} ?>
+					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-					<a href="php/logout.php" class="">Logout</a>
-					</li>
+						<a href="php/logout.php">Logout</a>
+					</li><!-- / Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>
@@ -154,11 +144,11 @@ AUTHOR: Themefisher
 								<!-- Basic -->
 								<div class="col-lg-12 col-md-12 mb-sm-6">
 									<ul>
-										<li class="dropdown-header">Pages</li>
+										<li class="dropdown-header">Shop</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="shop.php">Shop</a></li>
 										<li><a href="cart.php">Cart</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 									</ul>
 								</div>
 
@@ -180,7 +170,7 @@ AUTHOR: Themefisher
 									<ul>
 										<li class="dropdown-header">Introduction</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="about.php">About Us</a></li>
+										<li><a href="about.html">About Us</a></li>
 										<li><a href="contact.html">Contact Us</a></li>
 									</ul>
 								</div>
@@ -190,16 +180,13 @@ AUTHOR: Themefisher
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
 										<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>
 									</ul>
 								</div>
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Pages -->
-
+							</div>
+						</div>
 				</ul><!-- / .nav .navbar-nav -->
-
 			</div>
 			<!--/.navbar-collapse -->
 		</div><!-- / .container -->
@@ -246,44 +233,52 @@ AUTHOR: Themefisher
 		<div class="row">
 			<div class="col-md-12">
 				<div class="title text-center">
-					<h2>Product Category</h2>
+					<h2>Product Categories</h2>
 				</div>
 			</div>
 			<div class="col-md-6">
+			<?php if($row = $result->fetch_assoc()){?>
 				<div class="category-box">
 					<a href="#!">
-						<img src=<?php $row = $result->fetch_assoc(); echo $row["image"]; ?> alt="" />
+						<img src=<?php echo $row["image"]; ?> alt="" />
 						<div class="content">
 							<h3><?php echo $row["type"]; ?></h3>
 						</div>
 					</a>	
 				</div>
+			<?php }?>
+			<?php if($row = $result->fetch_assoc()){?>
 				<div class="category-box">
 					<a href="#!">
-						<img src=<?php $row = $result->fetch_assoc(); echo $row["image"]; ?> alt="" />
+						<img src=<?php echo $row["image"]; ?> alt="" />
 						<div class="content">
 							<h3><?php echo $row["type"]; ?></h3>
 						</div>
 					</a>	
 				</div>
+			<?php }?>
 			</div>
 			<div class="col-md-6">
+			<?php if($row = $result->fetch_assoc()){?>
 				<div class="category-box">
 					<a href="#!">
-						<img src=<?php $row = $result->fetch_assoc(); echo $row["image"]; ?> alt="" />
+						<img src=<?php echo $row["image"]; ?> alt="" />
 						<div class="content">
 							<h3><?php echo $row["type"]; ?></h3>
 						</div>
 					</a>	
 				</div>
+			<?php }?>
+			<?php if($row = $result->fetch_assoc()){?>
 				<div class="category-box">
 					<a href="#!">
-						<img src=<?php $row = $result->fetch_assoc(); echo $row["image"]; ?> alt="" />
+						<img src=<?php echo $row["image"]; ?> alt="" />
 						<div class="content">
 							<h3><?php echo $row["type"]; ?></h3>
 						</div>
 					</a>	
 				</div>
+			<?php }?>
 			</div>
 		</div>
 	</div>
@@ -296,24 +291,12 @@ AUTHOR: Themefisher
 				<h2>Trendy Products</h2>
 			</div>
 		</div>
-		<?php
-			$query2 = "Select * from products";
-			$stmt2 = $connection->prepare($query2);
-			$stmt2->execute();
-			$result2 = $stmt2->get_result();
-			for($i=0;$i<3;$i++){?>
 		<div class="row">
-			<?php $counter = 1;
-			while ($row2 = $result2->fetch_assoc()) {
-				if ($counter>3){
-					break;
-				}
-			?>
-
+			<?php	foreach($products as $row2){?>
 			<div class="col-md-4">
 				<div class="product-item">
 					<div class="product-thumb">
-						<img style="height:25em;width:25em" class="img-responsive" src=<?php echo $row2["image"]; ?> alt="product-img" />
+						<img style="height:20em;width:25em" class="img-responsive" src=<?php echo $row2["image"]; ?> alt="product-img" />
 					</div>
 					<div class="product-content">
 						<?php echo '<h4><a href="product-single.php?q=' . $row2["id"].'" >' . $row2["name"] . '</a></h4>';?>
@@ -321,10 +304,8 @@ AUTHOR: Themefisher
 					</div>
 				</div>
 			</div>
-				<?php
-				 $counter + 1 ;}?>
-				</div>
-				<?php }?>
+			<?php }?>
+		</div>
 	</div>
 </section>
 
@@ -360,7 +341,7 @@ AUTHOR: Themefisher
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="shop.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

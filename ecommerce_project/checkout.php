@@ -1,11 +1,7 @@
 <?php 
-include "php/connection.php";
-$query = "Select * from types";
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-session_start();
+include "php/get_cart_items.php"
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +44,10 @@ session_start();
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>0129- 12323-123123</span>
+				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
@@ -71,12 +71,10 @@ session_start();
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+					<li class="dropdown cart-nav dropdown-slide">
+						<a id="viewCart" href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
 						</div>
 
 					</li><!-- / Cart -->
@@ -91,9 +89,10 @@ session_start();
 							</li>
 						</ul>
 					</li><!-- / Search -->
+					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-					<a href="php/logout.php" class="">Logout</a>
-					</li>
+						<a href="php/logout.php">Logout</a>
+					</li><!-- / Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>
@@ -123,7 +122,7 @@ session_start();
 
 					<!-- Home -->
 					<li class="dropdown ">
-						<a href="dashboard.php">Home</a>
+						<a href="home.php">Home</a>
 					</li><!-- / Home -->
 
 
@@ -138,11 +137,11 @@ session_start();
 								<!-- Basic -->
 								<div class="col-lg-12 col-md-12 mb-sm-6">
 									<ul>
-										<li class="dropdown-header">Pages</li>
+										<li class="dropdown-header">Shop</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
-										<li><a href="add-product.php">Add Product</a></li>
-										<li><a href="products_instore.php">Show All Products</a></li>
+										<li><a href="shop.php">Shop</a></li>
+										<li><a href="cart.php">Cart</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 									</ul>
 								</div>
 
@@ -164,7 +163,7 @@ session_start();
 									<ul>
 										<li class="dropdown-header">Introduction</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="about.php">About Us</a></li>
+										<li><a href="about.html">About Us</a></li>
 										<li><a href="contact.html">Contact Us</a></li>
 									</ul>
 								</div>
@@ -174,92 +173,93 @@ session_start();
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
 										<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>
 									</ul>
 								</div>
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Pages -->
-
+							</div>
+						</div>
 				</ul><!-- / .nav .navbar-nav -->
-
 			</div>
 			<!--/.navbar-collapse -->
 		</div><!-- / .container -->
 	</nav>
 </section>
-<section class="signin-page account">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="block text-center">
-          <h2 class="text-center">Add Your Product Information</h2>
-          <form action="php/add.php" method="post" id="add_productF" class="text-left clearfix" enctype="multipart/form-data">
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Product's Name" name="name" id="name" required>
-              <div id="name_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="error"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Price in $" name="price_per_unit" required id="price">
-              <div id="price_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="perror"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="weight" placeholder="Weight in Kg" name="weight_in_Kg">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="quantity" placeholder="Quantity in stock" name="quantity_in_stock" required>
-                <div id="quantity_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="qerror"></span>
-		          </div>
-              </div>
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Description" name="description" required id="description">
-              <div id="desc_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="derror"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="production"  placeholder="Production Date YYYY-MM-DD" name="prod_date">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="expiry"  placeholder="Expiration Date YYYY-MM-DD" name="exp_date">
-              </div>
-              <div class="form-group">
-                <select class="form-control" id="category" name="type" required>
-                  <option value="" selected>Category</option>
-                  <?php while ($row = $result->fetch_assoc()) {
-                    echo '<option value='.$row["id"].'>' . $row["type"]. "</option>";
-                  } ?>
-                </select>
-              </div>
-              <div class="custom-file form-group form-control">
-                <input type="file" class="" id="image" name="image" required>
-                <div id="image_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="ierror"></span>
-		          </div>
-              </div>
+<div class="page-wrapper">
+   <div class="checkout shopping">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-8">
+               <div class="block billing-details">
+                  <h4 class="widget-title">Billing Details</h4>
+                  <form class="checkout-form" action="php/checkout.php" method="POST">
+                    <div class="form-group">
+                        <label for="full_name">Full Name</label>
+                        <input type="text" class="form-control" id="full_name" placeholder="">
+                    </div>
+                    <div class="checkout-country-code clearfix">
+                        <div class="form-group">
+                        <label for="user_post_code">Street</label>
+                        <input type="text" class="form-control" id="user_post_code" name="street" value="">
+                        </div>
+                        <div class="form-group" >
+                        <label for="user_city">City</label>
+                        <input type="text" class="form-control" id="user_city" name="city" value="">
+                        </div>
+                    </div>
 
-            <div class="text-center">
-              <button type="button" class="btn btn-main text-center" id="add_product">Add Product</button>
+                    <div class="form-group">
+                        <label for="user_country">Country</label>
+                        <input type="text" class="form-control" id="user_country" name="country" value="">
+                    </div>
             </div>
-          </form>
-          <p class="mt-20"><a href="home.php">Return to Home Page</a></p>
+            <div class="block">
+                <h4 class="widget-title">Cash on delivery</h4>
+                <div class="checkout-product-details">
+                    <div class="payment">
+                        <div class="card-details">
+                              <button type="submit" class="btn btn-main mt-20">Place Order</a >
+                        </div>
+                     </div>
+                  </div>
+               </div>
+			</form>
+            </div>
+            <div class="col-md-4">
+            <div class="product-checkout-details">
+                <div class="block">
+                    <h4 class="widget-title">Order Summary</h4>
+<?php $total = 0;
+foreach ($items as $item){ ?>
+                    <div class="media product-card">
+                        <?php echo '<a class="pull-left" href="product-single.php?q='.$item['product_id'].'">
+                        <img class="media-object" src="'.$item['image'].'" alt="Image" /></a>';?>
+                        <div class="media-body">
+						<?php echo '<h4 class="media-heading"><a href="product-single.php?q='.$item['product_id'].'">'. $item['name'].'</a></h4>';?>
+                        	<p class="price"><?php echo $item['quantity']."x".$item['price_per_unit'];?></p>
+                        	<span class="remove" ><?php echo '<a class="product-remove" href="php/remove_from_cart.php?q='.$item['id'].'">Remove</a>';?>
+</span>
+                        </div>
+                    </div>
+<?php $total = $total + $item['quantity']*$item['price_per_unit'];
+}?>
+                    <ul class="summary-prices">
+                        <li>
+                        	<span>Shipping:</span>
+                    		<span>Free</span>
+                        </li>
+                    </ul>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span><?php echo $total;?></span>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</section>
-
+</div>
+</div>
 <footer class="footer section text-center">
 	<div class="container">
 		<div class="row">

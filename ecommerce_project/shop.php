@@ -1,10 +1,15 @@
-<?php 
+<?php
 include "php/connection.php";
-$query = "Select * from types";
+include "php/get_all_products.php";
+$query = "Select id, type from types";
 $stmt = $connection->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
-session_start();
+
+$query = "Select id, name from stores";
+$stmt = $connection->prepare($query);
+$stmt->execute();
+$result2 = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,11 +48,16 @@ session_start();
 </head>
 
 <body id="body">
+
 <!-- Start Top Header Bar -->
 <section class="top-header">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>0129- 12323-123123</span>
+				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
@@ -71,12 +81,10 @@ session_start();
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+					<li class="dropdown cart-nav dropdown-slide">
+						<a id="viewCart" href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
 						</div>
 
 					</li><!-- / Cart -->
@@ -91,9 +99,10 @@ session_start();
 							</li>
 						</ul>
 					</li><!-- / Search -->
+					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-					<a href="php/logout.php" class="">Logout</a>
-					</li>
+						<a href="php/logout.php">Logout</a>
+					</li><!-- / Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>
@@ -123,7 +132,7 @@ session_start();
 
 					<!-- Home -->
 					<li class="dropdown ">
-						<a href="dashboard.php">Home</a>
+						<a href="home.php">Home</a>
 					</li><!-- / Home -->
 
 
@@ -138,11 +147,11 @@ session_start();
 								<!-- Basic -->
 								<div class="col-lg-12 col-md-12 mb-sm-6">
 									<ul>
-										<li class="dropdown-header">Pages</li>
+										<li class="dropdown-header">Shop</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
-										<li><a href="add-product.php">Add Product</a></li>
-										<li><a href="products_instore.php">Show All Products</a></li>
+										<li><a href="shop.php">Shop</a></li>
+										<li><a href="cart.php">Cart</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 									</ul>
 								</div>
 
@@ -164,7 +173,7 @@ session_start();
 									<ul>
 										<li class="dropdown-header">Introduction</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="about.php">About Us</a></li>
+										<li><a href="about.html">About Us</a></li>
 										<li><a href="contact.html">Contact Us</a></li>
 									</ul>
 								</div>
@@ -174,91 +183,91 @@ session_start();
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
 										<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>
 									</ul>
 								</div>
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Pages -->
-
+							</div>
+						</div>
 				</ul><!-- / .nav .navbar-nav -->
-
 			</div>
 			<!--/.navbar-collapse -->
 		</div><!-- / .container -->
 	</nav>
 </section>
-<section class="signin-page account">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="block text-center">
-          <h2 class="text-center">Add Your Product Information</h2>
-          <form action="php/add.php" method="post" id="add_productF" class="text-left clearfix" enctype="multipart/form-data">
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Product's Name" name="name" id="name" required>
-              <div id="name_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="error"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Price in $" name="price_per_unit" required id="price">
-              <div id="price_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="perror"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="weight" placeholder="Weight in Kg" name="weight_in_Kg">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="quantity" placeholder="Quantity in stock" name="quantity_in_stock" required>
-                <div id="quantity_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="qerror"></span>
-		          </div>
-              </div>
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Description" name="description" required id="description">
-              <div id="desc_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="derror"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="production"  placeholder="Production Date YYYY-MM-DD" name="prod_date">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="expiry"  placeholder="Expiration Date YYYY-MM-DD" name="exp_date">
-              </div>
-              <div class="form-group">
-                <select class="form-control" id="category" name="type" required>
-                  <option value="" selected>Category</option>
-                  <?php while ($row = $result->fetch_assoc()) {
-                    echo '<option value='.$row["id"].'>' . $row["type"]. "</option>";
-                  } ?>
-                </select>
-              </div>
-              <div class="custom-file form-group form-control">
-                <input type="file" class="" id="image" name="image" required>
-                <div id="image_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="ierror"></span>
-		          </div>
-              </div>
 
-            <div class="text-center">
-              <button type="button" class="btn btn-main text-center" id="add_product">Add Product</button>
-            </div>
-          </form>
-          <p class="mt-20"><a href="home.php">Return to Home Page</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Shop</h1>
+					<ol class="breadcrumb">
+						<li><a href="home.php">Home</a></li>
+						<li class="active">shop</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+
+
+<section class="products section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="widget">
+					<h4 class="widget-title">Filters</h4>
+					<hr>
+					<form>
+						<h5 class="widget-title">Category</h5>
+                        <select id="filter1" class="form-control">
+							<option value="">All</option>
+							<?php while($row = $result->fetch_assoc()){
+								echo '<option value="'.$row['id'].'">'.$row['type'].'</option>';
+							}?>
+                        </select>
+						<br>
+						<h5 class="widget-title">Store</h5>
+						<select id="filter2" class="form-control">
+							<option value="">All</option>
+							<?php while($row2 = $result2->fetch_assoc()){
+								echo '<option value="'.$row2['id'].'">'.$row2['name'].'</option>';
+							}?>
+                        </select>
+						<br>
+						<button id="filter" type="button" class="btn btn-small btn-solid-border">Go!</button>
+                    </form>
+	            </div>
+			</div>
+			<div class="col-md-9">
+				<div id="filteredSpace" class="row">
+					<?php foreach ($products as $row){?>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" style="height:20em;width:25em" src=<?php echo $row['image'];?> alt="product-img" />
+					</div>
+					<div class="product-content">
+						<?php echo '<h4><a href="product-single.php?q='.$row['id'].'">'.$row['name'].'</a></h4>';?>
+						<p class="price">$ <?php echo $row['price_per_unit'];?></p>
+					</div>
+				</div>
+			</div>
+			<?php }?>
+
+
+
+				</div>				
+			</div>
+		
+		</div>
+	</div>
+</section>
+
+
+
 
 <footer class="footer section text-center">
 	<div class="container">
@@ -266,22 +275,22 @@ session_start();
 			<div class="col-md-12">
 				<ul class="social-media">
 					<li>
-						<a href="https://www.facebook.com">
+						<a href="https://www.facebook.com/themefisher">
 							<i class="tf-ion-social-facebook"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.instagram.com">
+						<a href="https://www.instagram.com/themefisher">
 							<i class="tf-ion-social-instagram"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.twitter.com">
+						<a href="https://www.twitter.com/themefisher">
 							<i class="tf-ion-social-twitter"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.pinterest.com">
+						<a href="https://www.pinterest.com/themefisher/">
 							<i class="tf-ion-social-pinterest"></i>
 						</a>
 					</li>
@@ -292,6 +301,12 @@ session_start();
 					</li>
 					<li>
 						<a href="shop.html">SHOP</a>
+					</li>
+					<li>
+						<a href="pricing.html">Pricing</a>
+					</li>
+					<li>
+						<a href="contact.html">PRIVACY POLICY</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
@@ -325,5 +340,6 @@ session_start();
     <script src="js/script.js"></script>
     <script src="js/script2.js"></script>
 
-</body>
-</html>
+
+  </body>
+  </html>

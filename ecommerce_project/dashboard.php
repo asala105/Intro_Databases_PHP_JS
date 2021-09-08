@@ -1,52 +1,20 @@
 <?php 
 include "php/connection.php";
 session_start();
-$id = $_SESSION['user_id'];
-$query = "SELECT * from users WHERE id =".$id;
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
+$user_id = $_SESSION['user_id'];
+$user_email = $_SESSION['email'];
+$user_type = $_SESSION['is_customer'];
 
-if ($row['is_customer'] == 1) {
-$query = "SELECT * from customers WHERE user_id =".$id;
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
 
-$query = "SELECT o.id, s.status, o.date_time,o.address_id from orders o, statuses s WHERE o.customer_id =".$id ." and o.status_id = s.id";
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$orders = $stmt->get_result();
-}
-else{
-$query = "SELECT * from stores WHERE user_id =".$id;
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result-> fetch_assoc();
+$store_id = $_SESSION['store_id'];
+$store_name = $_SESSION['store_name'];
+$store_owner = $_SESSION['store_owner'];
+$phone_nb = $_SESSION['phone_nb'];
+$image = $_SESSION['image_logo'];
 
-$query = "SELECT p.id as purchaseID, o.id, s.status, o.date_time, o.address_id, p.product_id, p.quantity from orders o, purchase_product p, statuses s  WHERE p.store_id =".$user['id']."and o.status_id=s.id;";
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$orders = $stmt->get_result();
-}
+
+$query = "SELECT product_id, SUM(price) from purchase_product where store_id=".$store_id."Group by product_id";
 ?>
-<!-- 
-THEME: Aviato | E-commerce template
-VERSION: 1.0.0
-AUTHOR: Themefisher
-
-HOMEPAGE: https://themefisher.com/products/aviato-e-commerce-template/
-DEMO: https://demo.themefisher.com/aviato/
-GITHUB: https://github.com/themefisher/Aviato-E-Commerce-Template/
-
-WEBSITE: https://themefisher.com
-TWITTER: https://twitter.com/themefisher
-FACEBOOK: https://www.facebook.com/themefisher
--->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,7 +71,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">ASHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -166,7 +134,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 					<!-- Home -->
 					<li class="dropdown ">
-						<a href="home.php">Home</a>
+						<a href="dashboard.php">Home</a>
 					</li><!-- / Home -->
 
 
@@ -183,9 +151,9 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<ul>
 										<li class="dropdown-header">Pages</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="cart.php">Cart</a></li>
+										<li><a href="dashboard.php">Dashboard</a></li>
+										<li><a href="add-product.php">Add Product</a></li>
+										<li><a href="products_instore.php">Show All Products</a></li>
 									</ul>
 								</div>
 
@@ -257,42 +225,38 @@ FACEBOOK: https://www.facebook.com/themefisher
 				<ul class="list-inline dashboard-menu text-center">
 					<li><a class="active" href="dashboard.php">Dashboard</a></li>
 					<li><a href="profile-details.php">Profile Details</a></li>
+					<li><a href="products_instore.php">Show All Products</a></li>
+					<li><a href="">Revenues</a></li>
 				</ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="media">
 						<div class="pull-left">
-							<img class="media-object user-img" src=
-							<?php if($row['is_customer']==1){echo $user['profile_pic'];}else{echo $user['image_logo'];}?>
-							alt="Image"/>
+							<img class="media-object user-img" src=<?php echo $image;?> alt="Image">
 						</div>
 						<div class="media-body">
-							<h2 class="media-heading">Welcome 
-								<?php if($row['is_customer']==1){echo $user['first_name']." ".$user['last_name'];}else{echo $user['name'];}?>
-							</h2>
+							<h2 class="media-heading">Welcome <?php echo $store_name;?></h2>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, iure, est. Sit mollitia est maxime! Eos
 								cupiditate tempore, tempora omnis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, nihil. </p>
 						</div>
 					</div>
 					<div class="total-order mt-20">
-						<h4>Total Orders</h4>
+						<h4>Monthly Revenues By Product</h4>
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Order ID</th>
-										<th>Date and Time</th>
+										<th>Product ID</th>
+										<th>Revenues</th>
 										<th>Status</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php while($order = $orders->fetch_assoc()){?>
 									<tr>
-										<td><a href="#!"><?php echo $order['id'] ?></a></td>
-										<td><?php echo $order["date_time"]?></td>
-										<td><?php echo $order["status"]?></td>
+										<td><a href="#!"></a></td>
+										<td></td>
+										<td></td>
 									</tr>
-									<?php }?>
 								</tbody>
 							</table>
 						</div>

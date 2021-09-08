@@ -250,7 +250,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#viewCart").mouseover(function(){
+    $("#viewCart").mouseover(function(event){
         $.ajax({
             url: "header1.php",
             method: "GET",
@@ -258,6 +258,25 @@ $(document).ready(function () {
                 $("#cartitem").html(data);
             }
         })
-    })
+    });
+
+
+
+    $("#filter").click(function(event){
+        console.log("button clicked");
+        var action = 'get_product_with_filters';
+        var filter1 = $("#filter1").val();
+        var filter2 = $("#filter2").val();
+        console.log(filter1, "and ",filter2);
+        $.ajax({
+            url: "get_product_with_filters.php",
+            method: "POST",
+            data:{action:action,filter1:filter1,filter2:filter2},
+            success: function (data) {
+                $("#filteredSpace").html(data);
+                console.log("done");
+            }
+        })
+    });
 });
 

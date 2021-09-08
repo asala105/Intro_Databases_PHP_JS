@@ -7,6 +7,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
+if(isset($_POST['country'],$_POST['city'],$_POST['street']) && !empty($_POST['country']) && !empty($_POST['city']) && !empty($_POST['street'])){
 $query2 = "INSERT INTO addresses (country, city, street, user_id) VALUES (?, ?, ?, ?);";
 $stmt2 = $connection->prepare($query2);
 $stmt2-> bind_param('sssi',$_POST['country'],$_POST['city'],$_POST['street'],$_SESSION["user_id"]);
@@ -26,6 +27,8 @@ $stmt = $connection->prepare($query);
 $stmt-> bind_param('si',$row2['id'],$row['id']);
 $stmt->execute();
 $result = $stmt->get_result();
-
 header('location: ../confirmation.html');
+}else{
+    die("please enter the address");
+}
 ?>

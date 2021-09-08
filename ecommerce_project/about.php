@@ -7,14 +7,6 @@ session_start();
 THEME: Aviato | E-commerce template
 VERSION: 1.0.0
 AUTHOR: Themefisher
-
-HOMEPAGE: https://themefisher.com/products/aviato-e-commerce-template/
-DEMO: https://demo.themefisher.com/aviato/
-GITHUB: https://github.com/themefisher/Aviato-E-Commerce-Template/
-
-WEBSITE: https://themefisher.com
-TWITTER: https://twitter.com/themefisher
-FACEBOOK: https://www.facebook.com/themefisher
 -->
 
 
@@ -25,7 +17,7 @@ FACEBOOK: https://www.facebook.com/themefisher
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
+  <title>AShop | E-commerce Website</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -154,7 +146,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 										<li class="dropdown-header">Pages</li>
 										<li role="separator" class="divider"></li>
 										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 										<li><a href="cart.php">Cart</a></li>
 									</ul>
 								</div>

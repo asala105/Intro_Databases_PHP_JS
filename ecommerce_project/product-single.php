@@ -16,21 +16,6 @@ $stmt2->execute();
 $result2 = $stmt2->get_result();
 ?>
 
-<!-- 
-THEME: Aviato | E-commerce template
-VERSION: 1.0.0
-AUTHOR: Themefisher
-
-HOMEPAGE: https://themefisher.com/products/aviato-e-commerce-template/
-DEMO: https://demo.themefisher.com/aviato/
-GITHUB: https://github.com/themefisher/Aviato-E-Commerce-Template/
-
-WEBSITE: https://themefisher.com
-TWITTER: https://twitter.com/themefisher
-FACEBOOK: https://www.facebook.com/themefisher
--->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +23,7 @@ FACEBOOK: https://www.facebook.com/themefisher
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
+  <title>AShop | E-commerce Website</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -73,6 +58,10 @@ FACEBOOK: https://www.facebook.com/themefisher
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>0129- 12323-123123</span>
+				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
@@ -85,7 +74,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">ASHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -96,12 +85,10 @@ FACEBOOK: https://www.facebook.com/themefisher
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+					<li class="dropdown cart-nav dropdown-slide">
+						<a id="viewCart" href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
 						</div>
 
 					</li><!-- / Cart -->
@@ -116,9 +103,10 @@ FACEBOOK: https://www.facebook.com/themefisher
 							</li>
 						</ul>
 					</li><!-- / Search -->
+					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-					<a href="php/logout.php" class="">Logout</a>
-					</li>
+						<a href="php/logout.php">Logout</a>
+					</li><!-- / Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>
@@ -163,11 +151,11 @@ FACEBOOK: https://www.facebook.com/themefisher
 								<!-- Basic -->
 								<div class="col-lg-12 col-md-12 mb-sm-6">
 									<ul>
-										<li class="dropdown-header">Pages</li>
+										<li class="dropdown-header">Shop</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="shop.php">Shop</a></li>
 										<li><a href="cart.php">Cart</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 									</ul>
 								</div>
 
@@ -189,7 +177,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<ul>
 										<li class="dropdown-header">Introduction</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="about.php">About Us</a></li>
+										<li><a href="about.html">About Us</a></li>
 										<li><a href="contact.html">Contact Us</a></li>
 									</ul>
 								</div>
@@ -199,111 +187,19 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
-										<li><a href="profile-details.html">Profile Details</a></li>
-									</ul>
-								</div>
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Pages -->
-
-				</ul><!-- / .nav .navbar-nav -->
-
-			</div>
-			<!--/.navbar-collapse -->
-		</div><!-- / .container -->
-	</nav>
-</section>
-
-
-<!-- Main Menu Section -->
-<section class="menu">
-	<nav class="navbar navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<h2 class="menu-title">Main Menu</h2>
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-					aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-
-			</div><!-- / .navbar-header -->
-
-			<!-- Navbar Links -->
-			<div id="navbar" class="navbar-collapse collapse text-center">
-				<ul class="nav navbar-nav">
-
-					<!-- Home -->
-					<li class="dropdown ">
-						<a href="home.php">Home</a>
-					</li><!-- / Home -->
-
-
-					<!-- Elements -->
-					<li class="dropdown dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-							role="button" aria-haspopup="true" aria-expanded="false">Shop <span
-								class="tf-ion-ios-arrow-down"></span></a>
-						<div class="dropdown-menu">
-							<div class="row">
-
-								<!-- Basic -->
-								<div class="col-lg-12 col-md-12 mb-sm-6">
-									<ul>
-										<li class="dropdown-header">Pages</li>
-										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="cart.html">Cart</a></li>
-									</ul>
-								</div>
-
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Elements -->
-
-
-					<!-- Pages -->
-					<li class="dropdown dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-							role="button" aria-haspopup="true" aria-expanded="false">Pages <span
-								class="tf-ion-ios-arrow-down"></span></a>
-						<div class="dropdown-menu">
-							<div class="row">
-
-								<!-- Introduction -->
-								<div class="col-lg-6 col-md-6 mb-sm-3">
-									<ul>
-										<li class="dropdown-header">Introduction</li>
-										<li role="separator" class="divider"></li>
-										<li><a href="about.php">About Us</a></li>
-										<li><a href="contact.html">Contact Us</a></li>
-									</ul>
-								</div>
-
-								<!-- Contact -->
-								<div class="col-lg-6 col-md-6 mb-sm-3">
-									<ul>
-										<li class="dropdown-header">Dashboard</li>
-										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
 										<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>
 									</ul>
 								</div>
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Pages -->
-
+							</div>
+						</div>
 				</ul><!-- / .nav .navbar-nav -->
-
 			</div>
 			<!--/.navbar-collapse -->
 		</div><!-- / .container -->
 	</nav>
 </section>
+
 <section class="single-product">
 	<div class="container">
 		<div class="row">

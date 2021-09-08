@@ -1,11 +1,13 @@
 <?php 
 include "php/connection.php";
-$query = "Select * from types";
+session_start();
+$store_id = $_SESSION['store_id'];
+$query = "Select * from products WHERE store_id=".$store_id .";";
 $stmt = $connection->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
-session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,99 +191,85 @@ session_start();
 		</div><!-- / .container -->
 	</nav>
 </section>
-<section class="signin-page account">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="block text-center">
-          <h2 class="text-center">Add Your Product Information</h2>
-          <form action="php/add.php" method="post" id="add_productF" class="text-left clearfix" enctype="multipart/form-data">
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Product's Name" name="name" id="name" required>
-              <div id="name_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="error"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Price in $" name="price_per_unit" required id="price">
-              <div id="price_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="perror"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="weight" placeholder="Weight in Kg" name="weight_in_Kg">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="quantity" placeholder="Quantity in stock" name="quantity_in_stock" required>
-                <div id="quantity_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="qerror"></span>
-		          </div>
-              </div>
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="Description" name="description" required id="description">
-              <div id="desc_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="derror"></span>
-		          </div>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="production"  placeholder="Production Date YYYY-MM-DD" name="prod_date">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="expiry"  placeholder="Expiration Date YYYY-MM-DD" name="exp_date">
-              </div>
-              <div class="form-group">
-                <select class="form-control" id="category" name="type" required>
-                  <option value="" selected>Category</option>
-                  <?php while ($row = $result->fetch_assoc()) {
-                    echo '<option value='.$row["id"].'>' . $row["type"]. "</option>";
-                  } ?>
-                </select>
-              </div>
-              <div class="custom-file form-group form-control">
-                <input type="file" class="" id="image" name="image" required>
-                <div id="image_error" class="alert alert-danger alert-common alert-dismissible" role="alert" hidden> 
-		            	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            	<i class="tf-ion-close-circled"></i><span id="ierror"></span>
-		          </div>
-              </div>
-
-            <div class="text-center">
-              <button type="button" class="btn btn-main text-center" id="add_product">Add Product</button>
-            </div>
-          </form>
-          <p class="mt-20"><a href="home.php">Return to Home Page</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Dashboard</h1>
+					<ol class="breadcrumb">
+						<li><a href="home.php">Home</a></li>
+						<li class="active">my account</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
-
+<section class="user-dashboard page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+			<ul class="list-inline dashboard-menu text-center">
+					<li><a class="active" href="dashboard.php">Dashboard</a></li>
+					<li><a href="profile-details.php">Profile Details</a></li>
+					<li><a href="products_instore.php">Show All Products</a></li>
+					<li><a href="">Revenues</a></li>
+				</ul>
+				<div class="dashboard-wrapper user-dashboard">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+                                    <th>Product Image</th>
+									<th>Product ID</th>
+									<th>Product Name</th>
+									<th>Price per unit</th>
+									<th>Quantity in stock</th>
+                                    <th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php while($row = $result->fetch_assoc()){?>
+								<tr>
+                                    <td><img style="height:8rem;width:8rem;" src=<?php echo $row['image']?> alt=""></td>
+									<td># <?php echo $row['id']?></td>
+									<td><?php echo $row['name']?></td>
+									<td><?php echo $row['price_per_unit']?></td>
+									<td><span><?php echo $row['quantity_in_stock']?></span></td>
+                                    <td><?php echo '<a style="color:red" href="php/remove_product.php?q='.$row['id'].'">Remove Product</a>';?></td>
+								</tr>
+								<?php }?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 <footer class="footer section text-center">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="social-media">
 					<li>
-						<a href="https://www.facebook.com">
+						<a href="https://www.facebook.com/themefisher">
 							<i class="tf-ion-social-facebook"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.instagram.com">
+						<a href="https://www.instagram.com/themefisher">
 							<i class="tf-ion-social-instagram"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.twitter.com">
+						<a href="https://www.twitter.com/themefisher">
 							<i class="tf-ion-social-twitter"></i>
 						</a>
 					</li>
 					<li>
-						<a href="https://www.pinterest.com">
+						<a href="https://www.pinterest.com/themefisher/">
 							<i class="tf-ion-social-pinterest"></i>
 						</a>
 					</li>
@@ -293,13 +281,18 @@ session_start();
 					<li>
 						<a href="shop.html">SHOP</a>
 					</li>
+					<li>
+						<a href="pricing.html">Pricing</a>
+					</li>
+					<li>
+						<a href="contact.html">PRIVACY POLICY</a>
+					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
 			</div>
 		</div>
 	</div>
 </footer>
-
     <!-- 
     Essential Scripts
     =====================================-->
@@ -321,9 +314,14 @@ session_start();
     <script src="plugins/slick/slick.min.js"></script>
     <script src="plugins/slick/slick-animation.min.js"></script>
 
+    <!-- Google Mapl -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+
     <!-- Main Js File -->
     <script src="js/script.js"></script>
     <script src="js/script2.js"></script>
 
-</body>
-</html>
+
+  </body>
+  </html>

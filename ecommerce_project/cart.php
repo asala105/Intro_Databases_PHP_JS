@@ -1,16 +1,5 @@
 <?php 
-include "php/connection.php";
-session_start();
-$query = "Select pp.order_id, pp.id, pp.product_id, pp.quantity,p.name, p.price_per_unit, p.image from purchase_product pp, orders o,
- products p where pp.order_id = o.id and o.status_id=4 and p.id = pp.product_id and o.customer_id=".$_SESSION["user_id"].";";
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$items = array();
-while ($row = $result->fetch_assoc()){
-	array_push($items, $row);
-}
-
+include "php/get_cart_items.php"
 ?>
 <!-- 
 THEME: Aviato | E-commerce template
@@ -25,7 +14,7 @@ AUTHOR: Themefisher
 	==================================================
 	-->
 	<meta charset="utf-8">
-	<title>Aviato | E-commerce template</title>
+	<title>AShop | E-commerce Website</title>
 
 	<!-- 
 	Mobile Specific Metas
@@ -62,6 +51,10 @@ AUTHOR: Themefisher
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>0129- 12323-123123</span>
+				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
@@ -74,7 +67,7 @@ AUTHOR: Themefisher
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">ASHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -85,12 +78,10 @@ AUTHOR: Themefisher
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+					<li class="dropdown cart-nav dropdown-slide">
+						<a id="viewCart" href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
-
 						</div>
 
 					</li><!-- / Cart -->
@@ -105,9 +96,10 @@ AUTHOR: Themefisher
 							</li>
 						</ul>
 					</li><!-- / Search -->
+					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-					<a href="php/logout.php" class="">Logout</a>
-					</li>
+						<a href="php/logout.php">Logout</a>
+					</li><!-- / Search -->
 				</ul><!-- / .nav .navbar-nav .navbar-right -->
 			</div>
 		</div>
@@ -152,11 +144,11 @@ AUTHOR: Themefisher
 								<!-- Basic -->
 								<div class="col-lg-12 col-md-12 mb-sm-6">
 									<ul>
-										<li class="dropdown-header">Pages</li>
+										<li class="dropdown-header">Shop</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="shop.php">Shop</a></li>
 										<li><a href="cart.php">Cart</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 									</ul>
 								</div>
 
@@ -178,7 +170,7 @@ AUTHOR: Themefisher
 									<ul>
 										<li class="dropdown-header">Introduction</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="about.php">About Us</a></li>
+										<li><a href="about.html">About Us</a></li>
 										<li><a href="contact.html">Contact Us</a></li>
 									</ul>
 								</div>
@@ -188,16 +180,13 @@ AUTHOR: Themefisher
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
 										<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>
 									</ul>
 								</div>
-							</div><!-- / .row -->
-						</div><!-- / .dropdown-menu -->
-					</li><!-- / Pages -->
-
+							</div>
+						</div>
 				</ul><!-- / .nav .navbar-nav -->
-
 			</div>
 			<!--/.navbar-collapse -->
 		</div><!-- / .container -->
@@ -251,13 +240,13 @@ AUTHOR: Themefisher
 					  <td class=""><?php echo $row['quantity']?></td>
                       <td class="">$ <?php echo $row['price_per_unit']?></td>
                       <td class="">
-                        <a class="product-remove" href="#!">Remove</a>
+                        <?php echo '<a class="product-remove" href="php/remove_from_cart.php?q='.$row['id'].'">Remove</a>';?>
                       </td>
                     </tr>
 					<?php }?>
                   </tbody>
                 </table>
-                <a href="checkout.html" class="btn btn-main pull-right">Checkout</a>
+                <a href="checkout.php" class="btn btn-main pull-right">Checkout</a>
               </form>
             </div>
           </div>

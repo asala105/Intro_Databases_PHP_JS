@@ -1,49 +1,37 @@
 <?php 
 include "php/connection.php";
 session_start();
-$id = $_SESSION['user_id'];
-$query = "SELECT * from users WHERE id =".$id;
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$email = $row['email'];
- 
-$query = "SELECT * FROM addresses WHERE user_id =".$id." ORDER BY id DESC limit 1;";
+
+//getting the profile information from the queries performed on login
+$user_id = $_SESSION['user_id'];
+$email = $_SESSION['email'];
+$user_type = $_SESSION['is_customer'];
+if ($user_type == 1) {
+	$customer_id = $_SESSION['customer_id'];
+	$customer_fname = $_SESSION['customer_fname'];
+	$customer_lname = $_SESSION['customer_lname'];
+	$phone = $_SESSION['phone_nb'];
+	$image = $_SESSION['profile_pic'];
+	$name = $customer_fname . ' ' . $customer_lname;
+}
+else{
+	$store_id = $_SESSION['store_id'];
+	$store_name = $_SESSION['store_name'];
+	$store_owner = $_SESSION['store_owner'];
+	$phone = $_SESSION['phone_nb'];
+	$image = $_SESSION['image_logo'];
+	$name = $store_name .' owned by ' . $store_owner;
+}
+
+//getting the last address entered by the user 
+$query = "SELECT * FROM addresses WHERE user_id =".$user_id." ORDER BY id DESC limit 1;";
 $stmt = $connection->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
 $addresses = $result->fetch_assoc();
 $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street'];
 
-if ($row['is_customer'] == 1) {
-$query = "SELECT * from customers WHERE user_id =".$id;
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-$name = $user['first_name'].' '.$user['last_name'];
-$image = $user['profile_pic'];
-}
-else{
-$query = "SELECT * from stores WHERE user_id =".$id;
-$stmt = $connection->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result-> fetch_assoc();
-$name = $user["name"];
-$image = $user["image_logo"];
-}
-$phone = $user["phone_nb"];
 ?>
-<!-- 
-THEME: Aviato | E-commerce template
-VERSION: 1.0.0
-AUTHOR: Themefisher
-
--->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +39,7 @@ AUTHOR: Themefisher
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
+  <title>AShop | E-commerce Website</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -99,7 +87,7 @@ AUTHOR: Themefisher
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">ASHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -180,7 +168,7 @@ AUTHOR: Themefisher
 										<li class="dropdown-header">Pages</li>
 										<li role="separator" class="divider"></li>
 										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="checkout.php">Checkout</a></li>
 										<li><a href="cart.php">Cart</a></li>
 									</ul>
 								</div>
