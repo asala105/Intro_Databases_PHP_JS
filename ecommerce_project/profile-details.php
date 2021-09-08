@@ -79,7 +79,12 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
 				<div class="logo text-center">
-					<a href="home.php">
+					<?php if($user_type == 1){
+					echo '<a href="home.php">';
+					}
+					else{
+						echo '<a href="dashboard.php">';
+					}?>
 						<!-- replace logo here -->
 						<svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -152,7 +157,12 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 
 					<!-- Home -->
 					<li class="dropdown ">
-						<a href="home.php">Home</a>
+					<?php if($user_type == 1){
+					echo '<a href="home.php">';
+					}
+					else{
+						echo '<a href="dashboard.php">';
+					}?>Home</a>
 					</li><!-- / Home -->
 
 
@@ -239,7 +249,12 @@ $address = $addresses['country'].' '.$addresses['city'].' '.$addresses['street']
 				<div class="content">
 					<h1 class="page-name">Dashboard</h1>
 					<ol class="breadcrumb">
-						<li><a href="home.php">Home</a></li>
+						<li>					<?php if($user_type == 1){
+					echo '<a href="home.php">';
+					}
+					else{
+						echo '<a href="dashboard.php">';
+					}?>Home</a></li>
 						<li class="active">my account</li>
 					</ol>
 				</div>

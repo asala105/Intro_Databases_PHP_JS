@@ -1,13 +1,13 @@
-<?php
+<?php 
 include "php/connection.php";
 session_start();
 
+//getting the profile information from the queries performed on login
+$user_id = $_SESSION['user_id'];
+$email = $_SESSION['email'];
+$user_type = $_SESSION['is_customer'];
 ?>
-<!-- 
-THEME: Aviato | E-commerce template
-VERSION: 1.0.0
-AUTHOR: Themefisher
--->
+
 
 
 <!DOCTYPE html>
@@ -57,7 +57,12 @@ AUTHOR: Themefisher
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Site Logo -->
 				<div class="logo text-center">
-					<a href="home.php">
+					<?php if($user_type == 1){
+					echo '<a href="home.php">';
+					}
+					else{
+						echo '<a href="dashboard.php">';
+					}?>
 						<!-- replace logo here -->
 						<svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -65,7 +70,7 @@ AUTHOR: Themefisher
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">ASHOP</tspan>
 									</text>
 								</g>
 							</g>
@@ -76,7 +81,9 @@ AUTHOR: Themefisher
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide" id="viewCart">
+				<?php if($user_type == 1){
+					
+					echo '<li class="dropdown cart-nav dropdown-slide" id="viewCart">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div id="cartitem" class="dropdown-menu cart-dropdown">
@@ -84,8 +91,8 @@ AUTHOR: Themefisher
 
 						</div>
 
-					</li><!-- / Cart -->
-
+					</li><!-- / Cart -->';
+				 } ?>
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
@@ -128,7 +135,12 @@ AUTHOR: Themefisher
 
 					<!-- Home -->
 					<li class="dropdown ">
-						<a href="home.php">Home</a>
+					<?php if($user_type == 1){
+					echo '<a href="home.php">';
+					}
+					else{
+						echo '<a href="dashboard.php">';
+					}?>Home</a>
 					</li><!-- / Home -->
 
 
@@ -145,9 +157,17 @@ AUTHOR: Themefisher
 									<ul>
 										<li class="dropdown-header">Pages</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="shop.html">Shop</a></li>
+
+										<?php if($user_type == 1){
+										echo '<li><a href="shop.html">Shop</a></li>
 										<li><a href="checkout.php">Checkout</a></li>
-										<li><a href="cart.php">Cart</a></li>
+										<li><a href="cart.php">Cart</a></li>';
+										}
+										else{
+											echo '<li><a href="dashboard.php">Dashboard</a></li>
+											<li><a href="add-product.php">Add Product</a></li>
+											<li><a href="products_instore.php">Show All Products</a></li>';
+										}?>
 									</ul>
 								</div>
 
@@ -179,8 +199,13 @@ AUTHOR: Themefisher
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="dashboard.php">Dashboard</a></li>
-										<li><a href="profile-details.php">Profile Details</a></li>
+										<?php if($user_type == 1){
+										echo '<li><a href="profile-details.php">Profile Details</a></li>
+										<li><a href="orders.php">Orders</a></li>';
+										}else{
+										echo '<li><a href="dashboard.php">Dashboard</a></li>
+										<li><a href="profile-details.php">Profile Details</a></li>';
+										}?>
 									</ul>
 								</div>
 							</div><!-- / .row -->
@@ -195,7 +220,6 @@ AUTHOR: Themefisher
 	</nav>
 </section>
 
-
 <section class="page-header">
 	<div class="container">
 		<div class="row">
@@ -203,7 +227,12 @@ AUTHOR: Themefisher
 				<div class="content">
 					<h1 class="page-name">About Us</h1>
 					<ol class="breadcrumb">
-						<li><a href="home.php">Home</a></li>
+						<li><?php if($user_type == 1){
+					echo '<a href="home.php">';
+					}
+					else{
+						echo '<a href="dashboard.php">';
+					}?>Home</a></li>
 						<li class="active">about us</li>
 					</ol>
 				</div>
