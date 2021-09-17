@@ -105,6 +105,44 @@ session_start();
   </div>
 </div>
 
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="editExpenseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Expense</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="editExpenseForm" action="" method="POST">
+      <div class="modal-body">
+                  <div class="form-group">
+                    <label for="date" class="sr-only">Date</label>
+                    <input type="date" name="date" id="date" class="form-control form-data" placeholder="Date">
+                  </div>
+                  <div class="form-group mb-4">
+                    <label for="amount" class="sr-only">Amount</label>
+                    <input type="text" name="amount" id="amount" class="form-control form-data" placeholder="Amount">
+                  </div>
+                  <div class="form-group mb-4">
+                  <select name="category" class="form-select form-data chooseCategoryEdit" aria-label="Default select example">
+                    <option selected>Choose a Category</option>
+                  </select>
+                  </div>
+
+      </div>
+      <div class="modal-footer">
+          <input name="editExpense" class="btn btn-block btn-outline-dark editExpense" type="button" value= "Save Expense"/>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
   <!-- Modal -->
   <div class="modal fade" id="addCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -135,46 +173,11 @@ session_start();
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="editExpenseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Expense</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="editExpenseForm" action="php/addExpenses.php" method="POST">
-      <div class="modal-body">
-                  <div class="form-group">
-                    <label for="date" class="sr-only">Date</label>
-                    <input type="date" name="date" id="date" class="form-control form-data" placeholder="Date">
-                  </div>
-                  <div class="form-group mb-4">
-                    <label for="amount" class="sr-only">Amount</label>
-                    <input type="text" name="amount" id="amount" class="form-control form-data" placeholder="Amount">
-                  </div>
-                  <div class="form-group mb-4">
-                  <select id="editExpenseCategory" name="category" class="form-select form-data" aria-label="Default select example">
-                    <option selected value="">Choose a Category</option>
-                  </select>
-                  </div>
-                  <a class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="#addCatModal">Add New Category?</a>
-                  
-      </div>
-      <div class="modal-footer">
-          <input name="editExpense" id="editExpense" class="btn btn-block btn-outline-dark mb-4" type="button" value= "Edit Expense"/>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/homeJs.js"></script>
 </body>
 </html>
